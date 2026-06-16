@@ -1,0 +1,3564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Beauty & Magnetism Manual - Structural Glow-Up</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =============================================
+           RESET & BASE
+        ============================================= */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #C0302C;
+            --red-dark: #A00220;
+            --red-light: rgba(192,48,44,0.08);
+            --red-mid: rgba(192,48,44,0.15);
+            --gold: #FFD700;
+            --black: #1A1A1A;
+            --gray: #404040;
+            --gray-light: #666666;
+            --gray-muted: #999999;
+            --white: #FFFFFF;
+            --off-white: #F8F8F8;
+            --border: rgba(192,48,44,0.12);
+            --border-mid: rgba(192,48,44,0.25);
+            --shadow-sm: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-md: 0 8px 32px rgba(192,48,44,0.2);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s ease;
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--gray);
+            line-height: 1.65;
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+        button { font-family: var(--font-body); }
+
+        /* =============================================
+           SEGMENT SELECTOR
+        ============================================= */
+        #smoke-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            display: block;
+            border-radius: inherit;
+        }
+
+        #segment-selector {
+            position: fixed;
+            inset: 0;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        #segment-selector.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .segment-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            width: 100%;
+            max-width: 560px;
+            background: rgba(10, 5, 5, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(192,48,44,0.25);
+            border-radius: 24px;
+            padding: clamp(28px,5vw,48px) clamp(20px,4vw,40px);
+            box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+        }
+
+        .segment-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #ff7070;
+            margin-bottom: 16px;
+        }
+
+        .segment-title {
+            font-family: var(--font-head);
+            font-size: clamp(28px, 5vw, 44px);
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+        }
+
+        .segment-subtitle {
+            font-size: clamp(14px, 2vw, 16px);
+            color: rgba(255,255,255,0.78);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .segment-buttons {
+            display: grid;
+            gap: 12px;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        .segment-btn {
+            padding: 17px 24px;
+            font-family: var(--font-head);
+            font-size: 15px;
+            font-weight: 700;
+            border: 2px solid rgba(192,48,44,0.6);
+            background: rgba(192,48,44,0.12);
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+            touch-action: manipulation;
+        }
+
+        .segment-btn:hover, .segment-btn:active {
+            background: var(--red);
+            color: var(--white);
+            border-color: var(--red);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* =============================================
+           PAGE CONTAINER & VSL PAGES
+        ============================================= */
+        .page-container {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease 0.2s, visibility 0.6s ease 0.2s;
+        }
+
+        .page-container.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .vsl-page { display: none; }
+        .vsl-page.active { display: block; }
+
+        /* =============================================
+           HEADER
+        ============================================= */
+        header {
+            background: rgba(255,255,255,0.92);
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: clamp(18px, 3vw, 22px);
+            font-weight: 900;
+            color: var(--black);
+            letter-spacing: -0.5px;
+            flex-shrink: 0;
+        }
+
+        .logo span { color: var(--red); }
+
+        .header-badge {
+            font-size: 11px;
+            color: var(--red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            white-space: nowrap;
+        }
+
+        /* =============================================
+           CONTAINER
+        ============================================= */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 24px);
+        }
+
+        /* =============================================
+           HERO SECTION
+        ============================================= */
+        .hero-section {
+            padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px) clamp(40px, 6vw, 64px);
+            text-align: center;
+            background: linear-gradient(180deg, rgba(192,48,44,0.06) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        .hero-headline {
+            font-family: var(--font-head);
+            font-size: clamp(28px, 5.5vw, 52px);
+            font-weight: 900;
+            color: var(--black);
+            line-height: 1.12;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            max-width: 820px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-headline .highlight {
+            color: var(--red);
+            text-decoration: underline;
+            text-decoration-color: var(--gold);
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+        }
+
+        .hero-subheadline {
+            font-size: clamp(15px, 2.2vw, 17px);
+            color: var(--gray-light);
+            line-height: 1.85;
+            margin-bottom: 36px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+            color: var(--white);
+            padding: clamp(14px, 2.5vw, 18px) clamp(24px, 4vw, 48px);
+            font-family: var(--font-head);
+            font-size: clamp(13px, 1.8vw, 15px);
+            font-weight: 800;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            touch-action: manipulation;
+            max-width: 100%;
+            word-break: break-word;
+            white-space: normal;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(192,48,44,0.4);
+        }
+
+        /* =============================================
+           VSL VIDEO SECTION
+        ============================================= */
+        /* ── VSL Video Section ── */
+        .vsl-video-section {
+            background: #000;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            display: block;
+        }
+
+        /* ── Desktop: altura fixa com proporção 16:9 ── */
+        .vimeo-wrapper {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            max-height: 700px;
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* ── MOBILE: proporção 16:9 via aspect-ratio nativo ── */
+        @media (max-width: 768px) {
+            .vimeo-wrapper {
+                height: auto;
+                max-height: none;
+                aspect-ratio: 16 / 9;
+                width: 100%;
+            }
+        }
+
+        /* iframe sempre preenche o wrapper 100% */
+        .vimeo-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* =============================================
+           REALITY SECTION
+        ============================================= */
+        .reality-section {
+            padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px);
+            background: var(--white);
+        }
+
+        .reality-section h2 {
+            font-family: var(--font-head);
+            font-size: clamp(24px, 4vw, 34px);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .reality-text {
+            max-width: 760px;
+            margin: 0 auto;
+            font-size: clamp(14px, 2vw, 16px);
+            line-height: 1.9;
+            color: var(--gray);
+        }
+
+        .reality-text p { margin-bottom: 18px; }
+
+        .reality-text p.bold {
+            font-weight: 700;
+            color: var(--red);
+            font-size: clamp(15px, 2.2vw, 17px);
+            margin: 28px 0 18px;
+        }
+
+        .pain-list {
+            background: var(--red-light);
+            border-left: 4px solid var(--red);
+            padding: clamp(16px, 3vw, 22px) clamp(18px, 3vw, 26px);
+            margin: 24px 0;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+
+        .pain-list p {
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .pain-list p:last-child { margin-bottom: 0; }
+        .pain-list p strong { color: var(--red); }
+
+        /* =============================================
+           PARADIGM SECTION
+        ============================================= */
+        .paradigm-section {
+            padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px);
+            background: linear-gradient(180deg, var(--red-light) 0%, transparent 100%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .paradigm-section h2 {
+            font-family: var(--font-head);
+            font-size: clamp(24px, 4vw, 34px);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .paradigm-text {
+            max-width: 760px;
+            margin: 0 auto 36px;
+            font-size: clamp(14px, 2vw, 16px);
+            line-height: 1.9;
+            color: var(--gray);
+        }
+
+        .paradigm-text p { margin-bottom: 18px; }
+        .paradigm-text strong { color: var(--red); }
+
+        .problems-grid {
+            display: grid;
+            gap: 16px;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 600px) {
+            .problems-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .problem-card {
+            background: var(--red-light);
+            border: 1px solid var(--border-mid);
+            padding: clamp(16px, 3vw, 22px);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .problem-card:hover {
+            background: var(--red-mid);
+            border-color: rgba(192,48,44,0.4);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .problem-title {
+            font-weight: 700;
+            color: var(--red);
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .problem-text {
+            font-size: 14px;
+            color: var(--gray-light);
+            line-height: 1.7;
+        }
+
+        /* =============================================
+           TRANSFORMATION SECTION
+        ============================================= */
+        .transformation-section {
+            padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px);
+            background: var(--white);
+        }
+
+        .transformation-section h2 {
+            font-family: var(--font-head);
+            font-size: clamp(24px, 4vw, 34px);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .transformation-intro {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 40px;
+            font-size: clamp(14px, 2vw, 16px);
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .transformations-grid {
+            display: grid;
+            gap: 16px;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .transformation-item {
+            background: linear-gradient(135deg, var(--red-light) 0%, rgba(192,48,44,0.03) 100%);
+            border: 1px solid var(--border-mid);
+            padding: clamp(18px, 3vw, 24px);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .transformation-item:hover {
+            border-color: rgba(192,48,44,0.4);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .transformation-arrow {
+            color: var(--red);
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 8px;
+            display: inline-block;
+        }
+
+        .transformation-from {
+            color: var(--gray-muted);
+            font-size: 14px;
+        }
+
+        .transformation-to {
+            color: var(--red);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* =============================================
+           FAQ SECTION
+        ============================================= */
+        .faq-section {
+            padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px);
+            background: var(--off-white);
+        }
+
+        .faq-section h2 {
+            font-family: var(--font-head);
+            font-size: clamp(24px, 4vw, 34px);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .faq-container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border: 1px solid var(--border);
+            margin-bottom: 12px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover { box-shadow: 0 6px 24px rgba(192,48,44,0.1); }
+
+        .faq-question {
+            padding: clamp(16px, 3vw, 22px) clamp(18px, 3vw, 24px);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--black);
+            font-size: clamp(14px, 2vw, 15px);
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .faq-question:hover { background: var(--red-light); }
+
+        .faq-icon {
+            color: var(--red);
+            font-size: 22px;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+
+        .faq-answer {
+            padding: 0 clamp(18px, 3vw, 24px);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: clamp(14px, 2vw, 18px) clamp(18px, 3vw, 24px);
+            max-height: 400px;
+        }
+
+        .faq-answer p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: clamp(13px, 1.8vw, 15px);
+        }
+
+        /* =============================================
+           OFFER SECTION
+        ============================================= */
+        .offer-section {
+            padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px);
+            background: linear-gradient(180deg, var(--red-light) 0%, transparent 100%);
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .offer-section h2 {
+            font-family: var(--font-head);
+            font-size: clamp(24px, 4vw, 34px);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 36px;
+        }
+
+        .offer-box {
+            background: var(--white);
+            border: 2px solid var(--border-mid);
+            border-radius: var(--radius-lg);
+            padding: clamp(28px, 5vw, 48px) clamp(20px, 4vw, 40px);
+            max-width: 520px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .offer-badge {
+            display: inline-block;
+            background: var(--red);
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .offer-title {
+            font-family: var(--font-head);
+            font-size: clamp(18px, 3vw, 22px);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .offer-subtitle {
+            font-size: 14px;
+            color: var(--gray-light);
+            margin-bottom: 28px;
+            font-style: italic;
+        }
+
+        .price-container {
+            margin-bottom: 28px;
+        }
+
+        .price-old {
+            font-size: 16px;
+            color: var(--gray-muted);
+            text-decoration: line-through;
+            margin-bottom: 4px;
+        }
+
+        .price-new {
+            font-family: var(--font-head);
+            font-size: clamp(52px, 10vw, 72px);
+            font-weight: 900;
+            color: var(--red);
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        .price-installments {
+            font-size: 13px;
+            color: var(--gray-muted);
+            margin-top: 6px;
+        }
+
+        .cta-final-button {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+            color: var(--white);
+            padding: clamp(16px, 3vw, 20px) 24px;
+            font-family: var(--font-head);
+            font-size: clamp(13px, 2vw, 15px);
+            font-weight: 800;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            touch-action: manipulation;
+            word-break: break-word;
+            white-space: normal;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .cta-final-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(192,48,44,0.45);
+        }
+
+        /* CHECKOUT BTN — usado no redirect da MÃE */
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+            color: var(--white);
+            padding: clamp(16px, 3vw, 20px) 24px;
+            font-family: var(--font-head);
+            font-size: clamp(13px, 2vw, 15px);
+            font-weight: 800;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            touch-action: manipulation;
+            word-break: break-word;
+            white-space: normal;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(192,48,44,0.45);
+        }
+
+        .checkout-btn.pulse-highlight {
+            animation: pulseBtn 0.8s ease 3;
+        }
+
+        @keyframes pulseBtn {
+            0%, 100% { transform: scale(1); box-shadow: var(--shadow-md); }
+            50% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(192,48,44,0.2); }
+        }
+
+        .guarantee-text {
+            font-size: 12px;
+            color: var(--gray-muted);
+            line-height: 1.7;
+        }
+
+        .guarantee-badge {
+            display: inline-block;
+            background: var(--red-light);
+            border: 1px solid var(--border-mid);
+            color: var(--red);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        /* =============================================
+           FOOTER
+        ============================================= */
+        footer {
+            background: var(--white);
+            color: var(--gray-muted);
+            padding: clamp(24px, 4vw, 32px) clamp(16px, 4vw, 24px);
+            text-align: center;
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        footer a { color: var(--red); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* =============================================
+           FACE ANALYZER MODAL — base (kept for analyzer-screen)
+        ============================================= */
+        .analyzer-screen {
+            display: none;
+            min-height: 520px;
+            align-items: center;
+            justify-content: center;
+        }
+        .analyzer-screen.active { display: flex; }
+
+        #upload-screen { padding: clamp(28px, 5vw, 40px) clamp(18px, 4vw, 24px); }
+
+        .upload-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+        }
+
+        .app-title {
+            font-size: clamp(22px, 4vw, 26px);
+            font-weight: 700;
+            color: #FFF;
+            letter-spacing: 0.5px;
+        }
+
+        .app-sub {
+            font-size: 13px;
+            color: #666;
+            margin-top: -10px;
+        }
+
+        .avatar-upload {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 2px dashed var(--red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: var(--transition);
+            background: rgba(192,48,44,0.03);
+            touch-action: manipulation;
+        }
+
+        .avatar-upload:hover {
+            border-color: var(--gold);
+            background: var(--red-light);
+        }
+
+        .avatar-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar-placeholder span { font-size: 13px; color: var(--red); }
+        .avatar-upload img { width: 100%; height: 100%; object-fit: cover; }
+        #file-input { display: none; }
+
+        .btn-analyze {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px;
+            background: var(--red);
+            color: #FFF;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            touch-action: manipulation;
+        }
+
+        .btn-analyze:disabled { background: #4a1a1a; color: #8a4a4a; cursor: not-allowed; }
+        .btn-analyze:not(:disabled):hover { opacity: 0.9; }
+
+        .disclaimer { font-size: 12px; color: #666; letter-spacing: 0.5px; }
+
+        #analyzing-screen {
+            flex-direction: column;
+            gap: 24px;
+            padding: clamp(28px, 5vw, 40px) clamp(18px, 4vw, 24px);
+        }
+
+        .analyzing-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .scan-wrap { position: relative; width: 170px; height: 170px; }
+
+        .scan-wrap img {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--red);
+        }
+
+        .scan-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            top: 0;
+            animation: scanMove 1.4s linear infinite;
+        }
+
+        @keyframes scanMove { 0% { top: 0; } 100% { top: 100%; } }
+
+        .corner { position: absolute; width: 18px; height: 18px; }
+        .corner.tl { top: 5px; left: 5px; border-top: 2px solid var(--red); border-left: 2px solid var(--red); }
+        .corner.tr { top: 5px; right: 5px; border-top: 2px solid var(--red); border-right: 2px solid var(--red); }
+        .corner.bl { bottom: 5px; left: 5px; border-bottom: 2px solid var(--red); border-left: 2px solid var(--red); }
+        .corner.br { bottom: 5px; right: 5px; border-bottom: 2px solid var(--red); border-right: 2px solid var(--red); }
+
+        .analyzing-label {
+            font-size: 13px;
+            color: var(--red);
+            letter-spacing: 4px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+        .analyzing-sub { font-size: 12px; color: #666; letter-spacing: 0.5px; }
+
+        .progress-bar-wrap {
+            width: 210px;
+            height: 4px;
+            background: #222;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--red);
+            width: 0;
+            border-radius: 2px;
+            transition: width 3s linear;
+        }
+
+        #result-screen { flex-direction: column; padding: 0; }
+
+        .result-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-avatar-wrap { padding: 36px 0 0; display: flex; justify-content: center; }
+
+        .result-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--red);
+        }
+
+        .result-card {
+            width: 100%;
+            background: #111;
+            border-radius: 22px 22px 0 0;
+            padding: clamp(24px, 4vw, 32px) clamp(20px, 4vw, 28px) clamp(32px, 5vw, 40px);
+            margin-top: 20px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(20px, 4vw, 32px) clamp(16px, 3vw, 24px);
+            margin-bottom: 20px;
+        }
+
+        .metric { display: flex; flex-direction: column; gap: 8px; }
+
+        .metric-label {
+            font-size: 11px;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .metric-score {
+            font-size: clamp(36px, 7vw, 48px);
+            font-weight: 800;
+            color: var(--red);
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+
+        .bar-track {
+            height: 6px;
+            background: #2a2a2a;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: var(--red);
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-retry, .btn-continue-sale {
+            width: 100%;
+            padding: 14px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            touch-action: manipulation;
+        }
+
+        .btn-retry {
+            background: transparent;
+            border: 1px solid #2a2a2a;
+            color: #666;
+            margin-top: 16px;
+        }
+
+        .btn-retry:hover { border-color: var(--red); color: var(--red); }
+
+        .btn-continue-sale {
+            background: var(--red);
+            color: white;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .btn-continue-sale:hover { opacity: 0.9; }
+        .branding { font-size: 11px; color: #2a2a2a; text-align: center; margin-top: 16px; letter-spacing: 3px; font-weight: 600; }
+
+        /* =============================================
+           PAYMENT MODAL
+        ============================================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-content {
+            background: var(--off-white);
+            padding: clamp(28px, 5vw, 40px);
+            border-radius: var(--radius-md);
+            text-align: center;
+            max-width: 460px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .modal-content h3 {
+            font-family: var(--font-head);
+            font-size: clamp(18px, 3vw, 22px);
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+
+        .modal-content p { color: var(--gray); margin-bottom: 20px; font-size: 14px; }
+
+        .spinner {
+            border: 4px solid #E8E8E8;
+            border-top: 4px solid var(--red);
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            animation: spin 0.9s linear infinite;
+            margin: 0 auto 18px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* =============================================
+           BACK BUTTON
+        ============================================= */
+        .back-button {
+            background: transparent;
+            border: none;
+            color: var(--red);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            touch-action: manipulation;
+        }
+
+        .back-button:hover { color: var(--red-dark); transform: translateX(-3px); }
+        .back-button span { font-size: 17px; }
+
+        /* =============================================
+           ANALYZER CTA SECTION (entre transformações e FAQ)
+        ============================================= */
+        .analyzer-cta-section {
+            padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px);
+            background: linear-gradient(135deg, var(--red-light) 0%, rgba(192,48,44,0.03) 100%);
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .analyzer-cta-section h2 {
+            font-family: var(--font-head);
+            font-size: clamp(22px, 3.5vw, 30px);
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 16px;
+        }
+
+        .analyzer-cta-section p {
+            font-size: clamp(14px, 2vw, 16px);
+            color: var(--gray);
+            margin-bottom: 28px;
+            max-width: 660px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* =============================================
+           PULSECTA ANIMATION
+        ============================================= */
+        @keyframes pulseCta {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.025); box-shadow: 0 0 0 8px rgba(192,48,44,0.15); }
+        }
+
+        /* =============================================
+           RESPONSIVE — MOBILE FIRST ADJUSTMENTS
+        ============================================= */
+        /* =============================================
+           GLOBAL — overflow & word-break
+        ============================================= */
+        .vsl-page, .vsl-page * { max-width: 100%; }
+        p, h1, h2, h3, button { word-break: break-word; overflow-wrap: break-word; }
+
+        /* Safe area — always on, not inside media query */
+        body { padding-bottom: env(safe-area-inset-bottom, 0); }
+        header { padding-top: max(14px, env(safe-area-inset-top, 14px)); }
+
+        /* Touch targets minimum 44px — global */
+        .segment-btn, .cta-primary, .cta-final-button, .checkout-btn,
+        .btn-analyze, .btn-continue-sale, .back-button,
+        .faq-question, .close-analyzer { min-height: 44px; }
+
+        /* =============================================
+           PHONE FRAME (Face Analyzer) — base styles
+        ============================================= */
+        .phone-frame-outer {
+            position: relative;
+            width: 100%;
+            max-width: min(360px, 88vw);
+            margin: 0 auto;
+        }
+
+        .phone-frame {
+            position: relative;
+            background: #0a0a0a;
+            border-radius: 44px;
+            padding: 14px 8px;
+            box-shadow:
+                0 0 0 2px #2a2a2a,
+                0 0 0 4px #1a1a1a,
+                0 30px 80px rgba(0,0,0,0.7),
+                inset 0 0 0 1px rgba(255,255,255,0.05);
+        }
+
+        .phone-notch {
+            width: 90px; height: 22px;
+            background: #0a0a0a;
+            border-radius: 0 0 16px 16px;
+            margin: 0 auto 6px;
+            position: relative; z-index: 2;
+            display: flex; align-items: center;
+            justify-content: center; gap: 6px;
+        }
+        .phone-notch::before {
+            content: '';
+            width: 8px; height: 8px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+        .phone-notch::after {
+            content: '';
+            width: 40px; height: 4px;
+            background: #1a1a1a;
+            border-radius: 2px;
+        }
+
+        .phone-screen {
+            background: #000;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            min-height: 520px;
+        }
+
+        .phone-home-bar {
+            width: 100px; height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            margin: 8px auto 4px;
+        }
+
+        .phone-btn-right {
+            position: absolute; right: -3px; top: 100px;
+            width: 3px; height: 60px;
+            background: #1a1a1a; border-radius: 0 2px 2px 0;
+        }
+        .phone-btn-left-1 {
+            position: absolute; left: -3px; top: 80px;
+            width: 3px; height: 30px;
+            background: #1a1a1a; border-radius: 2px 0 0 2px;
+        }
+        .phone-btn-left-2 {
+            position: absolute; left: -3px; top: 120px;
+            width: 3px; height: 50px;
+            background: #1a1a1a; border-radius: 2px 0 0 2px;
+        }
+        .phone-btn-left-3 {
+            position: absolute; left: -3px; top: 180px;
+            width: 3px; height: 50px;
+            background: #1a1a1a; border-radius: 2px 0 0 2px;
+        }
+
+        .phone-screen .face-analyzer-container {
+            border-radius: 0; border: none;
+            min-height: 520px; width: 100%; max-width: 100%;
+        }
+
+        /* =============================================
+           FACE ANALYZER MODAL — centered on all screens
+        ============================================= */
+        .face-analyzer-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.96);
+            z-index: 2000;
+            /* Always center the phone frame */
+            align-items: center;
+            justify-content: center;
+            padding: max(12px, env(safe-area-inset-top, 12px))
+                     12px
+                     max(12px, env(safe-area-inset-bottom, 12px))
+                     12px;
+            overflow-y: auto;
+            /* Flexbox scroll fix: wrap in column so short screens scroll */
+            flex-direction: column;
+        }
+        .face-analyzer-modal.active { display: flex; }
+
+        /* Close button — always visible top-right of phone */
+        .close-analyzer {
+            position: absolute;
+            top: -14px; right: -14px;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--red);
+            color: #fff; border: none;
+            font-size: 17px; cursor: pointer;
+            z-index: 20;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.25s;
+            touch-action: manipulation;
+            box-shadow: 0 4px 12px rgba(192,48,44,0.4);
+        }
+        .close-analyzer:hover { background: var(--red-dark); }
+
+        /* =============================================
+           ≤ 768px  TABLET / LARGE PHONE
+        ============================================= */
+        @media (max-width: 768px) {
+            /* Header */
+            header { padding: 12px 0; }
+            .header-content { padding: 0 14px; }
+            .logo { font-size: 17px; }
+            .header-badge { font-size: 10px; }
+
+            /* Hero */
+            .hero-section { padding: 32px 16px 24px; }
+            .hero-headline { font-size: clamp(22px, 6vw, 32px); letter-spacing: -0.5px; }
+            .hero-subheadline { font-size: 14px; margin-bottom: 0; line-height: 1.7; }
+
+            /* Sections */
+            .reality-section, .paradigm-section,
+            .transformation-section, .faq-section,
+            .offer-section, .analyzer-cta-section,
+            .cta-final-section, .guarantee-section { padding: 36px 16px; }
+
+            /* Grids → single column */
+            .problems-grid, .transformations-grid { grid-template-columns: 1fr; }
+
+            /* Offer */
+            .offer-box { padding: 22px 16px; }
+            .price-new { font-size: 48px; }
+
+            /* Buttons */
+            .cta-primary, .cta-final-button, .checkout-btn {
+                font-size: 13px; padding: 15px 16px;
+                width: 100%; display: block;
+                box-sizing: border-box;
+            }
+            .faq-question { font-size: 13px; padding: 14px 16px; }
+
+            /* Segment selector */
+            .segment-title { font-size: 26px; }
+            .segment-subtitle { font-size: 13px; }
+            .segment-btn { padding: 14px 18px; font-size: 14px; }
+
+            /* Vimeo video */
+
+
+            /* VSL overlay CTAs */
+            div[id$="-cta-overlay"] button {
+                font-size: 14px !important;
+                padding: 16px 20px !important;
+            }
+        }
+
+        /* =============================================
+           ≤ 480px  STANDARD PHONE
+        ============================================= */
+        @media (max-width: 480px) {
+            /* Segment */
+            .segment-content { padding: 24px 16px; border-radius: 18px; }
+            .segment-title { font-size: clamp(20px, 6.5vw, 26px); }
+            .segment-btn { padding: 14px 16px; font-size: 13px; }
+            .segment-buttons { gap: 10px; }
+
+            /* Hero */
+            .hero-headline { font-size: clamp(20px, 6vw, 26px); }
+            .hero-subheadline { font-size: 13px; }
+
+            /* Phone frame */
+            .phone-frame-outer { max-width: 100%; padding: 0 8px; }
+            .phone-frame { border-radius: 36px; padding: 12px 6px; }
+            .phone-screen { border-radius: 28px; min-height: 500px; }
+            .phone-screen .face-analyzer-container { min-height: 500px; }
+
+            /* Analyzer screens */
+            .avatar-upload { width: 150px; height: 150px; }
+            .scan-wrap, .scan-wrap img { width: 150px; height: 150px; }
+            .result-avatar { width: 120px; height: 120px; }
+            .result-avatar-wrap { padding-top: 24px; }
+            .result-card { padding: 16px 14px 28px; }
+            .metrics-grid { grid-template-columns: 1fr 1fr; gap: 14px 10px; }
+            .metric-score { font-size: 30px; }
+            .btn-continue-sale, .btn-retry { font-size: 13px; padding: 13px; }
+
+            /* Offer */
+            .offer-box { padding: 20px 14px; }
+            .price-new { font-size: 42px; }
+        }
+
+        /* =============================================
+           ≤ 380px  SMALL PHONE (SE / Galaxy A)
+        ============================================= */
+        @media (max-width: 380px) {
+            /* Segment */
+            .segment-content { padding: 20px 14px; border-radius: 16px; }
+            .segment-title { font-size: 20px; }
+            .segment-btn { font-size: 12px; padding: 13px 14px; }
+
+            /* Hero */
+            .hero-headline { font-size: 19px; letter-spacing: 0; }
+
+            /* Phone frame */
+            .phone-frame { border-radius: 28px; padding: 10px 4px; }
+            .phone-screen { border-radius: 22px; min-height: 460px; }
+            .phone-screen .face-analyzer-container { min-height: 460px; }
+
+            /* Analyzer */
+            .avatar-upload { width: 130px; height: 130px; }
+            .scan-wrap, .scan-wrap img { width: 130px; height: 130px; }
+            .result-avatar { width: 100px; height: 100px; }
+            .metrics-grid { gap: 12px 8px; }
+            .metric-score { font-size: 26px; }
+
+            /* Buttons */
+            .cta-primary, .cta-final-button, .checkout-btn { font-size: 12px; padding: 13px 14px; }
+            .price-new { font-size: 38px; }
+        }
+
+        /* Prevent iOS zoom on inputs */
+        input[type="file"],
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            font-size: 16px !important;
+        }
+
+        /* =============================================
+           ENHANCEMENT LAYER — SOPHISTICATED CSS EFFECTS
+           Mantém cores originais, adiciona profundidade
+        ============================================= */
+
+        /* ── Scroll reveal base ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                        transform 0.65s cubic-bezier(0.22,1,0.36,1);
+        }
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* ── Header aprimorado ── */
+        header {
+            box-shadow: 0 1px 0 var(--border), 0 4px 24px rgba(0,0,0,0.06);
+            transition: box-shadow 0.3s ease;
+        }
+        header.scrolled {
+            box-shadow: 0 1px 0 var(--border), 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        .logo {
+            background: linear-gradient(135deg, var(--black) 0%, #3a1a1a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo span {
+            background: linear-gradient(135deg, var(--red) 0%, #e85550 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── Hero section aprimorada ── */
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-headline {
+            background: linear-gradient(160deg, var(--black) 0%, #2d1515 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-headline .highlight {
+            background: linear-gradient(135deg, var(--red) 0%, #e03030 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: underline;
+            text-decoration-color: var(--gold);
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+        }
+
+        /* ── CTA buttons com efeito shimmer ── */
+        .cta-primary, .cta-final-button, .checkout-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--red) 0%, #d43530 50%, var(--red-dark) 100%);
+            background-size: 200% 100%;
+            transition: background-position 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cta-primary::after, .cta-final-button::after, .checkout-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+            transition: left 0.5s ease;
+            pointer-events: none;
+        }
+        .cta-primary:hover::after, .cta-final-button:hover::after, .checkout-btn:hover::after {
+            left: 160%;
+        }
+        .cta-primary:hover, .cta-final-button:hover, .checkout-btn:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(192,48,44,0.45), 0 4px 12px rgba(192,48,44,0.25);
+        }
+
+        /* ── Pain list aprimorada ── */
+        .pain-list {
+            position: relative;
+            background: linear-gradient(135deg, rgba(192,48,44,0.06) 0%, rgba(192,48,44,0.02) 100%);
+            border-left: 4px solid var(--red);
+            box-shadow: inset 0 0 0 1px rgba(192,48,44,0.08);
+        }
+        .pain-list::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--red) 0%, #e03030 50%, var(--red-dark) 100%);
+        }
+
+        /* ── Problem cards aprimorados ── */
+        .problem-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(192,48,44,0.06) 0%, rgba(192,48,44,0.02) 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--red), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .problem-card:hover::before { opacity: 1; }
+        .problem-card:hover {
+            background: linear-gradient(145deg, rgba(192,48,44,0.1) 0%, rgba(192,48,44,0.04) 100%);
+            border-color: rgba(192,48,44,0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(192,48,44,0.12), 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        /* ── Transformation items aprimorados ── */
+        .transformation-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .transformation-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .transformation-item:hover::before { opacity: 1; }
+        .transformation-item:hover {
+            box-shadow: 0 10px 30px rgba(192,48,44,0.12), 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* ── FAQ aprimorado ── */
+        .faq-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        .faq-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(192,48,44,0.1), 0 2px 6px rgba(0,0,0,0.04);
+        }
+        .faq-item.active {
+            border-color: var(--border-mid);
+            box-shadow: 0 4px 16px rgba(192,48,44,0.08);
+        }
+        .faq-question:hover { background: rgba(192,48,44,0.05); }
+
+        /* ── Offer box aprimorado ── */
+        .offer-box {
+            position: relative;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 4px 16px rgba(192,48,44,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+            border: 1.5px solid rgba(192,48,44,0.2);
+        }
+        .offer-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red-dark), var(--red), var(--gold), var(--red));
+            background-size: 200% 100%;
+            animation: shimmerBar 3s linear infinite;
+        }
+        @keyframes shimmerBar {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        /* ── Price aprimorado ── */
+        .price-new {
+            background: linear-gradient(135deg, var(--red) 0%, #e03030 50%, var(--red-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 8px rgba(192,48,44,0.25));
+        }
+
+        /* ── Guarantee badge aprimorado ── */
+        .guarantee-badge {
+            background: linear-gradient(135deg, rgba(192,48,44,0.08) 0%, rgba(192,48,44,0.04) 100%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+        .guarantee-badge:hover {
+            background: rgba(192,48,44,0.12);
+            transform: scale(1.02);
+        }
+
+        /* ── Segment selector aprimorado ── */
+        .segment-content {
+            background: rgba(10,5,5,0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 0 8px 48px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.05) inset;
+            border: 1px solid rgba(192,48,44,0.2);
+        }
+        .segment-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+        }
+        .segment-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+            transition: left 0.5s ease;
+            pointer-events: none;
+        }
+        .segment-btn:hover::after { left: 160%; }
+        .segment-btn:hover {
+            background: var(--red);
+            border-color: var(--red);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 8px 24px rgba(192,48,44,0.4);
+        }
+
+        /* ── Sections com divisor elegante ── */
+        .reality-section,
+        .transformation-section {
+            position: relative;
+        }
+        .reality-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            border-radius: 2px;
+        }
+
+        /* ── Paradigm section decoração ── */
+        .paradigm-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .paradigm-section::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            right: -60px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(192,48,44,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ── Offer section decoração ── */
+        .offer-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .offer-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(192,48,44,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ── Back button aprimorado ── */
+        .back-button {
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            background: rgba(192,48,44,0.06);
+            transform: translateX(-4px);
+        }
+
+        /* ── Analyzer CTA section ── */
+        .analyzer-cta-section {
+            background: linear-gradient(135deg,
+                rgba(192,48,44,0.06) 0%,
+                rgba(192,48,44,0.02) 50%,
+                rgba(255,215,0,0.03) 100%);
+        }
+
+        /* ── Footer aprimorado ── */
+        footer {
+            background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── Face analyzer modal aprimorado ── */
+        .face-analyzer-modal {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .phone-frame {
+            box-shadow:
+                0 0 0 2px #2a2a2a,
+                0 0 0 4px #1a1a1a,
+                0 40px 100px rgba(0,0,0,0.8),
+                0 20px 40px rgba(192,48,44,0.15),
+                inset 0 0 0 1px rgba(255,255,255,0.05);
+        }
+
+        /* ── Scan line com glow ── */
+        .scan-line {
+            background: linear-gradient(90deg, transparent, rgba(192,48,44,0.8), var(--red), rgba(192,48,44,0.8), transparent);
+            box-shadow: 0 0 8px rgba(192,48,44,0.6), 0 0 20px rgba(192,48,44,0.3);
+        }
+
+        /* ── Progress bar com glow ── */
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--red-dark), var(--red), #e85550);
+            box-shadow: 0 0 8px rgba(192,48,44,0.5);
+        }
+
+        /* ── Bar fills com glow ── */
+        .bar-fill {
+            background: linear-gradient(90deg, var(--red-dark), var(--red));
+            box-shadow: 0 0 6px rgba(192,48,44,0.4);
+        }
+
+        /* ── Metric score com glow ── */
+        .metric-score {
+            text-shadow: 0 0 20px rgba(192,48,44,0.3);
+        }
+
+        /* ── Oferta badge com brilho ── */
+        .offer-badge {
+            background: linear-gradient(135deg, var(--red) 0%, #d43530 100%);
+            box-shadow: 0 4px 12px rgba(192,48,44,0.3);
+        }
+
+        /* ── Header badge ── */
+        .header-badge {
+            animation: pulseText 2.5s ease-in-out infinite;
+        }
+        @keyframes pulseText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.65; }
+        }
+
+        /* ── Smooth focus rings acessíveis ── */
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid var(--red);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* ── Reduced motion ── */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .cta-primary, .cta-final-button,
+            .checkout-btn, .segment-btn, .problem-card,
+            .transformation-item, .faq-item {
+                transition: none !important;
+                animation: none !important;
+            }
+            .offer-box::before { animation: none !important; }
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <!-- SEGMENT SELECTOR -->
+    <div id="segment-selector">
+        <!-- SMOKE BACKGROUND — fica atrás do card -->
+        <canvas id="smoke-canvas" aria-hidden="true"></canvas>
+        <div class="segment-content">
+            <h2 class="segment-title">Choose Your Path</h2>
+            <p class="segment-subtitle">You will receive a fully personalized analysis based on your profile. This choice shapes your entire experience.</p>
+            <div class="segment-buttons">
+                <button class="segment-btn" onclick="selectSegment('homem')">👨 I'm a Man</button>
+                <button class="segment-btn" onclick="selectSegment('mulher')">👩 I'm a Woman</button>
+                <button class="segment-btn" onclick="selectSegment('mae')">👩‍👧 I'm a Mom</button>
+                <button class="segment-btn" onclick="selectSegment('outro')">✨ I Prefer Not to Identify</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN PAGE CONTAINER -->
+    <div class="page-container" id="page-container">
+
+        <!-- VSL HOMEM -->
+        <div class="vsl-page" id="vsl-homem">
+            <!-- HEADER -->
+            <header>
+                <div class="header-content">
+                    <button class="back-button" onclick="goBackToSegmentSelector()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="logo">looks<span>max</span></div>
+                    <div class="header-badge">⚡ Instant Access</div>
+                </div>
+            </header>
+
+            <!-- HERO SECTION -->
+            <section class="hero-section">
+                <div class="container">
+                    <h1 class="hero-headline">The world doesn't <span class="highlight">hate</span> you... it simply pretends you don't exist.</h1>
+                    <p class="hero-subheadline">No matter how smart, hardworking, or "nice guy" you are. If your facial structure signals weakness, you'll be invisible to women and ignored by society. Discover the science of Looksmaxxing: the only real path to building a jaw that commands respect, eliminating the tired look, and forcing the world to see you.</p>
+                </div>
+            </section>
+
+            <!-- VSL VIDEO SECTION -->
+            <section class="vsl-video-section">
+                <div id="vimeo-homem-wrapper" class="vimeo-wrapper">
+                    <!-- iframe injected dynamically on "I'm a Man" click -->
+                </div>
+
+                <!-- CTA shown when video ends -->
+                <div id="vsl-homem-cta-overlay" style="display:none; background:#000; padding: 40px 20px; text-align:center;">
+                    <p style="color:#fff; font-size:18px; font-weight:600; margin:0 0 20px;">🔥 Ready to command respect?</p>
+                    <button
+                        onclick="openFaceAnalyzer()"
+                        style="background:#C0302C; color:#fff; border:none; padding:20px 36px; font-size:18px; font-weight:700; border-radius:8px; cursor:pointer; max-width:500px; width:100%; line-height:1.4;">
+                        👉 I WANT TO STOP BEING INVISIBLE AND COMMAND RESPECT NOW
+                    </button>
+                    <p style="color:#aaa; font-size:13px; margin:16px 0 0;">✓ 7-day guarantee · Instant access</p>
+                </div>
+            </section>
+
+            <!-- REALITY SECTION -->
+            <section class="reality-section">
+                <div class="container">
+                    <h2>The Reality of Invisibility</h2>
+                    <div class="reality-text">
+                        <p>Let's be honest, without the comfortable lies you've been told. You know exactly how it feels. Spending the whole day with your face buried in your phone, watching everyone else's life happen while yours stays stagnant, endlessly scrolling and feeling like a background character in the real world.</p>
+                        
+                        <div class="pain-list">
+                            <p><strong>You walk into a room and nobody notices you're there.</strong></p>
+                            <p><strong>You try to talk to a woman and her eyes drift away in less than two seconds,</strong> looking for someone "more interesting."</p>
+                            <p><strong>You open your front camera without a filter,</strong> in bad lighting, and the shock hits: a shapeless face, puffy cheeks, a chin that seems to disappear into your neck, and completely lifeless eyes.</p>
+                        </div>
+
+                        <p class="bold">Society tells you "what matters is on the inside." Lie.</p>
+
+                        <p>The human brain is wired to judge your social value, leadership, and level of respect before you even open your mouth. And that judgment is made by looking at your facial structure. If your face doesn't command respect, you've already lost the game before it starts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PARADIGM SECTION -->
+            <section class="paradigm-section">
+                <div class="container">
+                    <h2>The Paradigm Shift: Your Face Is the Currency of Status</h2>
+                    <div class="paradigm-text">
+                        <p>You don't need to spend two hours a day lifting weights to be respected. Your body hides under clothes most of the time. <strong>Your face doesn't.</strong> It's your business card 24 hours a day.</p>
+                        
+                        <p>The man who dominates a room doesn't win because he's the nicest; he wins because <strong>his biology triggers status signals</strong> in other people's brains. The problem is that <strong>spending the whole day hunched over your phone is destroying your anatomy right now:</strong></p>
+                    </div>
+
+                    <div class="problems-grid">
+                        <div class="problem-card">
+                            <div class="problem-title">Jaw Retraction (Tech-Neck)</div>
+                            <div class="problem-text">Spending hours with your head down looking at your phone destroys your cervical posture, making your chin "disappear" into your neck and creating the appearance of a submissive man.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">Facial Puffiness (Bloat)</div>
+                            <div class="problem-text">Poor circulation, bad posture, and incorrect breathing leave your face round, puffy, and childlike — stripping away any trace of authority.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">The Defeated Look</div>
+                            <div class="problem-text">Screen-tired eyes, misaligned brows, and lack of bone support project an image of chronic exhaustion.</div>
+                        </div>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 40px; font-size: 16px; color: #C0302C; font-weight: 600;">The manual we created is the only key you have to break this cycle of invisibility.</p>
+                </div>
+            </section>
+
+            <!-- TRANSFORMATION SECTION -->
+            <section class="transformation-section">
+                <div class="container">
+                    <h2>The Radical Transformation: What You Will Achieve</h2>
+                    <p class="transformation-intro">This manual was designed for the man starting from absolute zero. You don't need to be born rich, have model genetics, or afford expensive procedures. Here is the real path:</p>
+                    
+                    <div class="transformations-grid">
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">From round, childlike face</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">To the facial de-puffing protocol and masseter activation that sculpts sharp jawline definition</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">From "phone neck" posture (forward head)</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">To immediate postural correction that projects your jaw forward and makes you look dominant</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">From total insecurity with women</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">To the symmetry shift that changes how women start making eye contact with you first</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">From social disrespect</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">To high-level aesthetic alignment (practical visagism) that makes people listen to you with attention</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ANALYZER CTA -->
+            <section class="analyzer-cta-section">
+                <div class="container">
+                    <h2>Discover Exactly What You Need to Change</h2>
+                    <p>Our artificial intelligence analyzes your facial structure with mathematical precision and identifies exactly which changes will make you visible again.</p>
+                    <button class="cta-primary" onclick="openFaceAnalyzer()">→ Analyze My Face Now</button>
+                    <p class="offer-subtitle">100% private. Diagnosis in seconds. No surgeries.</p>
+                </div>
+            </section>
+
+            <!-- FAQ SECTION -->
+            <section class="faq-section">
+                <div class="container">
+                    <h2>Questions Every Man Asks</h2>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>I'm very overweight — does this work?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>That's exactly why you need this manual. Facial fat hides your true bone structure. The guide teaches how to project your jaw and shift the facial tissue dynamics so that, even while losing weight, your features remain sharp and masculine.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>I'm very shy and have no social skills.</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Shyness is fueled by visual rejection. When you improve your facial harmony, people's reactions around you change. You start receiving smiles and respect without forcing friendliness. Visual status resolves 80% of your shyness.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>This is only for people who are already good-looking.</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Wrong. People who were born attractive don't need technique. This manual is for those who need to build their own attractiveness from absolute zero using science, mechanics, and correct habits.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Do I need surgery or expensive procedures?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>No. Zero surgeries. Zero expensive procedures. This manual is 100% focused on natural techniques: correct postures, facial de-puffing habits, feature alignment through practical visagism, facial exercises, and grooming strategies that maximize what you already have.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OFFER SECTION -->
+            <section class="offer-section">
+                <div class="container">
+                    <h2>Your Key to Social Status</h2>
+                    <p class="offer-text">You have two choices today: Keep scrolling your phone, go back to being the ignored guy who spends weekends watching everyone else succeed through a screen... Or accept that biology has brutal rules, get the manual, and start rewriting your facial structure today.</p>
+                    
+                    <div class="price-box">
+                        <div class="price-label">From</div>
+                        <div class="price-old">$197.00</div>
+                        <div class="price-current">$47.90</div>
+                        <div class="price-frequency">Instant & Lifetime Access</div>
+                    </div>
+
+                    <p class="offer-subtitle">Your access will be sent instantly to your email in 100% discreet fashion.</p>
+                </div>
+            </section>
+
+            <!-- FINAL CTA SECTION -->
+            <section class="cta-final-section">
+                <div class="container">
+                    <h2>Be Seen. Be Respected. Exist.</h2>
+                    <p>This is where invisibility ends. This is where your transformation begins.</p>
+                    <button class="cta-final-button" onclick="processPayment()">👉 I WANT TO UNLOCK MY STATUS AND BE SEEN BY THE WORLD</button>
+                </div>
+            </section>
+
+            <!-- GUARANTEE -->
+            <section class="guarantee-section">
+                <div class="guarantee-text">
+                    Your access will be sent instantly to your email in 100% discreet fashion. Unconditional 7-day guarantee — if you don't feel the change in confidence, we refund every cent.
+                    <div class="guarantee-badge">✓ 7-DAY GUARANTEE</div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer>
+                <p>© 2025 Looksmaxxing Manual. All rights reserved.<br>
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">7-Day Guarantee</a></p>
+            </footer>
+        </div>
+
+        <!-- VSL MULHER -->
+        <div class="vsl-page" id="vsl-mulher">
+            <!-- HEADER -->
+            <header>
+                <div class="header-content">
+                    <button class="back-button" onclick="goBackToSegmentSelector()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="logo">glow<span>up</span></div>
+                    <div class="header-badge">⚡ Instant Access</div>
+                </div>
+            </header>
+
+            <!-- HERO SECTION -->
+            <section class="hero-section">
+                <div class="container">
+                    <h1 class="hero-headline">The world doesn't <span class="highlight">hate</span> you... it simply ignores those who don't own their image.</h1>
+                    <p class="hero-subheadline">No matter how much you spend on makeup, skincare, or diets. If your facial structure and posture radiate tiredness, puffiness, and lack of harmony, you'll keep feeling like a supporting character in your own life. Discover the science of Structural Glow-Up: the only real and natural path to sculpting your features, eliminating the bloated look, and forcing the world to admire your presence.</p>
+                </div>
+            </section>
+
+            <!-- VSL VIDEO SECTION -->
+            <section class="vsl-video-section">
+                <div id="vimeo-mulher-wrapper" class="vimeo-wrapper">
+                    <!-- iframe injected dynamically on "I'm a Woman" click -->
+                </div>
+
+                <!-- CTA shown when video ends -->
+                <div id="vsl-mulher-cta-overlay" style="display:none; background:#000; padding: 40px 20px; text-align:center;">
+                    <p style="color:#fff; font-size:18px; font-weight:600; margin:0 0 20px;">🔥 Ready to transform your image?</p>
+                    <button
+                        onclick="openFaceAnalyzer()"
+                        style="background:#C0302C; color:#fff; border:none; padding:20px 36px; font-size:18px; font-weight:700; border-radius:8px; cursor:pointer; max-width:500px; width:100%; line-height:1.4; animation: pulseCta 1.5s infinite;">
+                        👉 I WANT TO STOP BEING INVISIBLE AND BECOME MAGNETIC NOW
+                    </button>
+                    <p style="color:#aaa; font-size:13px; margin:16px 0 0;">✓ 7-day guarantee · Instant access</p>
+                </div>
+            </section>
+
+            <!-- REALITY SECTION -->
+            <section class="reality-section">
+                <div class="container">
+                    <h2>The Reality of Invisibility</h2>
+                    <div class="reality-text">
+                        <p>Let's be honest, without the comforting lies about "inner beauty." You know exactly how it feels. Spending the whole day with your face buried in your phone, watching other women live out romances, careers, and incredible lives, while you scroll the feed feeling stuck and uncomfortable in your own skin.</p>
+
+                        <div class="pain-list">
+                            <p><strong>You spend hours getting ready, but when you take a photo without a filter, you hate what you see and delete it immediately.</strong></p>
+                            <p><strong>You try to get someone's attention, but their eyes quickly shift</strong> to that "naturally beautiful" woman who just walked into the room.</p>
+                            <p><strong>You accidentally open your front camera and the shock hits:</strong> a rounded face, a double chin forming, heavy eyes with no glow.</p>
+                        </div>
+
+                        <p class="bold">Society tells you "true beauty comes from within." Lie.</p>
+
+                        <p>The human brain is biologically wired to be attracted to symmetry, vitality, and facial harmony. If your face radiates tiredness and lacks definition, you lose opportunities, attraction, and respect before you even say "hello." Makeup only paints the surface; it's your structure that defines your magnetism.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PARADIGM SECTION -->
+            <section class="paradigm-section">
+                <div class="container">
+                    <h2>The Secret of Magnetism</h2>
+                    <div class="paradigm-text">
+                        <p>You don't need a $5,000 facial harmonization procedure. The secret of women who command every room isn't just genetics — it's the biological and postural support they have. The problem is that spending hours hunched over your phone is destroying your anatomy and natural beauty right now:</p>
+                    </div>
+
+                    <div class="problems-grid">
+                        <div class="problem-card">
+                            <div class="problem-title">"Phone Chin" (Tech-Neck)</div>
+                            <div class="problem-text">Spending hours looking down destroys your jaw definition, creating skin buildup under your chin (double chin) and shortening your neck. You instantly lose elegance, appearing older and submissive.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">Facial Retention (Bloat)</div>
+                            <div class="problem-text">Poor circulation, incorrect tongue posture, and wrong breathing leave your face puffy with a "moon face" appearance, hiding the cheekbones that would give you the model-like contour you desire.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">The Exhausted Look</div>
+                            <div class="problem-text">Constant screen tension drops your eyelids and brows, giving the impression that you're always exhausted, sad, or unmotivated.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">The Real Solution</div>
+                            <div class="problem-text">The manual we created is the only key you have to reverse this damage and sculpt your face from the inside out — no needles, no procedures, and no spending a fortune.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TRANSFORMATION SECTION -->
+            <section class="transformation-section">
+                <div class="container">
+                    <h2>The Radical Transformation</h2>
+                    <p class="transformation-intro">This manual was designed for the real woman. You don't need to be born with privileged genetics and you don't need needles.</p>
+
+                    <div class="transformations-grid">
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">Puffy, Shapeless Face</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">Deep lymphatic drainage protocol and muscle activation that uncovers your cheekbones and slims your contours</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">"Phone Chin" and Slouched Shoulders</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">Immediate biomechanical correction that projects your jawline, elongates your neck, and makes you radiate the posture of a high-value woman</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">Sad, Drooping Eyes</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">Natural lifting techniques (Structural Siren/Fox Eyes) that turn your gaze into your greatest weapon of attraction</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">Insecurity and Comparison</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">Unshakeable confidence of a woman who walks into any room knowing she's the center of attention</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ SECTION -->
+            <section class="faq-section">
+                <div class="container">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="faq-container">
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                I'm overweight — does this work for me?
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>That's exactly why you need this manual. Facial puffiness hides your natural beauty far more than the scale does. The guide teaches how to drain fluids and project your facial bones so that, even during your weight loss journey, you already show fine, harmonious lines.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                Isn't this too vain? Shouldn't I focus on my inner self?
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Vanity is spending a fortune on makeup to hide insecurities. What we teach is health, posture, and biology. When you look in the mirror and feel stunning, your energy shifts, your career flows, and your relationships transform. Beauty opens doors.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                Will I need to buy expensive creams or get aesthetic procedures?
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Absolutely not. This method is 100% focused on Natural Beauty. We teach facial mechanics, structural massages, and habit correction so your own body does the harmonization work for free.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- OFFER SECTION -->
+            <section class="offer-section">
+                <div class="container">
+                    <h2>You Have Two Choices Today</h2>
+                    <p style="text-align: center; font-size: 18px; color: #404040; max-width: 700px; margin: 0 auto 40px;">Keep being the invisible woman who spends her days admiring other women's beauty... or accept the rules of biology, get the manual, and start sculpting the face and presence that will put you at center stage of your own life.</p>
+
+                    <div class="offer-box">
+                        <div class="offer-badge">⚡ SPECIAL OFFER</div>
+                        <h3 class="offer-title">YOUR MAGNETISM & BEAUTY MANUAL</h3>
+                        <div class="offer-subtitle">Be noticed. Be magnetic. Exist.</div>
+
+                        <div class="price-container">
+                            <div class="price-old">From $197.00</div>
+                            <div class="price-new">$47.90</div>
+                            <div class="price-installments">Instant and lifetime access</div>
+                        </div>
+
+                        <button class="cta-final-button" onclick="openFaceAnalyzer()">👉 I WANT TO UNLOCK MY BEAUTY AND BECOME UNFORGETTABLE</button>
+
+                        <div class="guarantee-text">
+                            Your access will be sent instantly to your email in 100% discreet fashion. Unconditional 7-day guarantee — either you love your new image in the mirror, or we refund your money.
+                            <div class="guarantee-badge">✓ 7-DAY GUARANTEE</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer>
+                <p>© 2025 GlowUp Manual. All rights reserved.<br>
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">7-Day Guarantee</a></p>
+            </footer>
+        </div>
+
+        <!-- VSL MAE -->
+        <div class="vsl-page" id="vsl-mae">
+            <!-- HEADER -->
+            <header>
+                <div class="header-content">
+                    <button class="back-button" onclick="goBackToSegmentSelector()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="logo">future<span>face</span></div>
+                    <div class="header-badge">⚡ Instant Access</div>
+                </div>
+            </header>
+
+            <!-- HERO SECTION -->
+            <section class="hero-section">
+                <div class="container">
+                    <h1 class="hero-headline">Mom, the future of your child's smile and confidence is being decided <span class="highlight">right now</span>.</h1>
+                    <p class="hero-subheadline">A retracted jaw or mouth breathing in childhood are not just "phases." Discover how early intervention can guide your child's facial development, ensuring facial harmony and protecting them from emotional suffering in the future.</p>
+                </div>
+            </section>
+
+            <!-- VSL VIDEO SECTION -->
+            <section class="vsl-video-section">
+                <div id="vimeo-mae-wrapper" class="vimeo-wrapper">
+                    <!-- iframe injected dynamically on "I'm a Mom" click -->
+                </div>
+
+                <!-- CTA shown when video ends -->
+                <div id="vsl-mae-cta-overlay" style="display:none; background:#000; padding: 40px 20px; text-align:center;">
+                    <p style="color:#fff; font-size:18px; font-weight:600; margin:0 0 20px;">🔥 Protect your child's future now!</p>
+                    <button
+                        onclick="openFaceAnalyzer()"
+                        style="background:#C0302C; color:#fff; border:none; padding:20px 36px; font-size:18px; font-weight:700; border-radius:8px; cursor:pointer; max-width:500px; width:100%; line-height:1.4;">
+                        👉 I WANT TO PROTECT MY CHILD'S DEVELOPMENT
+                    </button>
+                    <p style="color:#aaa; font-size:13px; margin:16px 0 0;">✓ 7-day guarantee · Instant access</p>
+                </div>
+            </section>
+
+            <!-- REALITY SECTION -->
+            <section class="reality-section">
+                <div class="container">
+                    <h2>The Protective Instinct and the Invisible Pain</h2>
+                    <div class="reality-text">
+                        <p>You do everything to protect your child. You watch their diet, their education, their friendships, and lose sleep when they have a fever. But there's a silent detail that most mothers — and even some pediatricians — overlook until it's too late.</p>
+                        
+                        <p>When you look at your child and notice their chin is slightly recessed, they sleep with their mouth open, or their face doesn't seem to be developing at the same proportion as other children... your heart sinks.</p>
+
+                        <div class="pain-list">
+                            <p><strong>The truth nobody tells you:</strong> The outside world is unforgiving. Kids and teenagers can be cruel. Lack of facial harmony, a recessed chin, or weak bone structure are the number one targets for bullying, social exclusion, and the destruction of self-esteem during adolescence.</p>
+                        </div>
+
+                        <p class="bold">You want your child to grow up confident. To walk into a room and be respected. To smile for a photo without trying to hide their own face.</p>
+
+                        <p>But the reality is that <strong>confidence starts in biology</strong>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PARADIGM SECTION -->
+            <section class="paradigm-section">
+                <div class="container">
+                    <h2>The Biological Clock: The Window That Is Closing</h2>
+                    <div class="paradigm-text">
+                        <p>The worst lie society tells mothers is: <strong>"Don't worry, with time their face will fill out, it's just growing pains."</strong></p>
+                        
+                        <p>The science of craniofacial development proves exactly the opposite. A child's facial bone structure doesn't grow forward by magic. It requires <strong>correct mechanical stimuli</strong>.</p>
+
+                        <p style="margin: 30px 0 20px 0; font-weight: 600; color: #C0302C;">Until the start of puberty, the bones of the face (especially the maxilla and jaw) are malleable — like clay that hasn't hardened yet.</p>
+                    </div>
+
+                    <div class="problems-grid">
+                        <div class="problem-card">
+                            <div class="problem-title">Mouth Breathing (Open-Mouth Breathing)</div>
+                            <div class="problem-text">Their face will grow downward and backward, narrowing the airways, crowding the teeth, and destroying the jawline.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">Incorrect Tongue Posture</div>
+                            <div class="problem-text">Causes retraction of the mid-face, creating a recessed chin and lack of natural bone definition.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">Soft Food Chewing Habits</div>
+                            <div class="problem-text">Fails to stimulate masseter muscle development, resulting in a weak jaw and underdeveloped facial structure.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">After the Bones Have Hardened</div>
+                            <div class="problem-text">The only solution becomes corrective (orthognathic) surgery — a painful, risky process that can cost tens of thousands of dollars.</div>
+                        </div>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 40px; font-size: 16px; color: #C0302C; font-weight: 600;">Every month that passes is a bone growth opportunity that won't come back.</p>
+                </div>
+            </section>
+
+            <!-- TRANSFORMATION SECTION -->
+            <section class="transformation-section">
+                <div class="container">
+                    <h2>The Solution: The Facial Development & Harmony Manual</h2>
+                    <p class="transformation-intro">You don't need to wait for the worst to happen or rely on luck. This manual is not about vanity. It's about giving your child the biological foundation for their face to develop and reach its full genetic potential.</p>
+                    
+                    <div class="transformations-grid">
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">Open Mouth / Mouth Breathing</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">Daily lip-sealing exercises and definitive transition to nasal breathing, expanding the palate</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">Recessed Chin (Retrognathism)</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">The correct tongue-to-palate positioning technique to push the mid-face forward and develop proper bone support</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">Lack of Bone Definition</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">The chewing protocol and correct foods to develop the masseter muscles and naturally widen the jaw</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">Risk of Expensive Interventions</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">How to identify the exact moment when a functional orthodontist's help is needed — before it requires surgery</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ANALYZER CTA -->
+            <section class="analyzer-cta-section">
+                <div class="container">
+                    <h2>You Have the Power to Change Your Child's Trajectory</h2>
+                    <p>A strong, symmetrical, well-developed face not only prevents bullying and breathing problems — it is the business card that will open doors for them for the rest of their life.</p>
+                    <button class="cta-primary" onclick="openFaceAnalyzer()">→ Start Protecting Now</button>
+                    <p class="offer-subtitle">Replace silent worry with action grounded in real anatomy.</p>
+                </div>
+            </section>
+
+            <!-- FAQ SECTION -->
+            <section class="faq-section">
+                <div class="container">
+                    <h2>Questions Protective Mothers Ask</h2>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Are these techniques safe for children?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Completely. The Manual is based on orthotropic and functional speech therapy principles. It involves no medication or invasive devices — only the correction of natural daily habits: how to breathe, chew, and swallow in the anatomically correct way.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>From what age can I apply the manual?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>The sooner, the better. The guide includes playful adaptations for younger children to build body awareness, and direct protocols for pre-teens and teenagers who are still in their bone growth phase.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Does this replace the dentist or pediatrician?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>No. The manual works alongside health professionals. It gives you the daily knowledge that doctors often don't have time to explain in a 15-minute consultation — focusing on the habits your child practices during the other 23 hours of the day at home.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>How long until I see results?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Bone growth is an ongoing process. You'll start noticing changes in breathing and posture within weeks. Visible changes in facial structure appear between 3 to 6 months of consistent practice, depending on your child's age.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OFFER SECTION -->
+            <section class="offer-section">
+                <div class="container">
+                    <h2>Don't Leave Your Child's Future to Chance</h2>
+                    <p class="offer-text">As a mother, you have the power to change the trajectory of your child's life today. This manual brings together the most advanced science on natural bone development and anatomical precision into a clear, safe guide that is fully applicable in everyday life.</p>
+                    
+                    <div class="price-box">
+                        <div class="price-label">From</div>
+                        <div class="price-old">$197.00</div>
+                        <div class="price-current">$47.90</div>
+                        <div class="price-frequency">Instant & Lifetime Access</div>
+                    </div>
+
+                    <p class="offer-subtitle">Start applying the exercises at home today.</p>
+                </div>
+            </section>
+
+            <!-- FINAL CTA SECTION -->
+            <section class="cta-final-section">
+                <div class="container">
+                    <h2>Secure Your Child's Bright Future</h2>
+                    <p>Every month that passes is a bone growth opportunity that won't come back. Replace silent worry with action based on real anatomy.</p>
+                    <button class="cta-final-button checkout-btn" onclick="processPayment()">👉 GET THE MANUAL AND PROTECT MY CHILD'S FUTURE</button>
+                </div>
+            </section>
+
+            <!-- GUARANTEE -->
+            <section class="guarantee-section">
+                <div class="guarantee-text">
+                    Your access will be sent instantly to your email in 100% discreet fashion. Unconditional 7-day guarantee — if you don't feel confident in the results, we refund your money.
+                    <div class="guarantee-badge">✓ 7-DAY GUARANTEE</div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer>
+                <p>© 2025 FutureFace Manual. All rights reserved.<br>
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">7-Day Guarantee</a></p>
+            </footer>
+        </div>
+
+        <!-- VSL OUTRO (GENÉRICA) -->
+        <div class="vsl-page" id="vsl-outro">
+            <!-- HEADER -->
+            <header>
+                <div class="header-content">
+                    <button class="back-button" onclick="goBackToSegmentSelector()">
+                        <span>←</span> Back
+                    </button>
+                    <div class="logo">face<span>code</span></div>
+                    <div class="header-badge">⚡ Instant Access</div>
+                </div>
+            </header>
+
+            <!-- HERO SECTION -->
+            <section class="hero-section">
+                <div class="container">
+                    <h1 class="hero-headline">The world doesn't <span class="highlight">hate</span> you... it simply pretends you don't exist.</h1>
+                    <p class="hero-subheadline">No matter how smart, hardworking, or "good person" you are. If your facial structure signals weakness and tiredness, you'll keep being invisible in social circles and ignored by people. Discover the science of Facial Optimization: the only natural path to sculpting your jaw, eliminating the puffy look, and forcing the world to see you with respect and admiration.</p>
+                </div>
+            </section>
+
+            <!-- VSL VIDEO SECTION -->
+            <section class="vsl-video-section">
+                <div id="vimeo-outro-wrapper" class="vimeo-wrapper">
+                    <!-- iframe injected dynamically on "Prefer Not to Identify" click -->
+                </div>
+
+                <!-- CTA shown when video ends -->
+                <div id="vsl-outro-cta-overlay" style="display:none; background:#000; padding: 40px 20px; text-align:center;">
+                    <p style="color:#fff; font-size:18px; font-weight:600; margin:0 0 20px;">🔥 Ready to be seen by the world?</p>
+                    <button
+                        onclick="openFaceAnalyzer()"
+                        style="background:#C0302C; color:#fff; border:none; padding:20px 36px; font-size:18px; font-weight:700; border-radius:8px; cursor:pointer; max-width:500px; width:100%; line-height:1.4;">
+                        👉 I WANT TO STOP BEING INVISIBLE AND COMMAND RESPECT NOW
+                    </button>
+                    <p style="color:#aaa; font-size:13px; margin:16px 0 0;">✓ 7-day guarantee · Instant access</p>
+                </div>
+            </section>
+
+            <!-- REALITY SECTION -->
+            <section class="reality-section">
+                <div class="container">
+                    <h2>The Reality of Invisibility</h2>
+                    <div class="reality-text">
+                        <p>Let's be real, without the comfortable excuses you've been fed. You know exactly how it feels. Spending the whole day with your face buried in your phone, watching everyone else succeed while yours stagnates, endlessly scrolling and feeling like a background character in the real world.</p>
+                        
+                        <div class="pain-list">
+                            <p><strong>You enter a room and nobody notices you or makes eye contact.</strong></p>
+                            <p><strong>You try to connect with someone, but their attention drifts away in seconds</strong> to someone who seems "naturally" more attractive.</p>
+                            <p><strong>You open your front camera without a filter, in bad lighting,</strong> and the shock hits: a round, shapeless face, a chin that seems to disappear into your neck, and completely lifeless eyes.</p>
+                        </div>
+
+                        <p class="bold">Society tells you "what matters is on the inside." Lie.</p>
+
+                        <p>The human brain is biologically wired to judge social value, health, and attractiveness before a single word is spoken. And that judgment is made by looking at your facial structure. If your face doesn't project presence, you've already lost the game before it starts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PARADIGM SECTION -->
+            <section class="paradigm-section">
+                <div class="container">
+                    <h2>Your Face Is the Only Currency of Status</h2>
+                    <div class="paradigm-text">
+                        <p>You don't need thousands in aesthetic procedures or years changing your body. Your body hides under clothes most of the time. <strong>Your face doesn't.</strong> It's your business card 24 hours a day.</p>
+                        
+                        <p>The people who dominate rooms and attract stares didn't win by genetic luck alone; they have the correct biological support. The big problem is that <strong>spending the whole day hunched over your phone is destroying your anatomy right now:</strong></p>
+                    </div>
+
+                    <div class="problems-grid">
+                        <div class="problem-card">
+                            <div class="problem-title">Chronic Retraction (Tech-Neck)</div>
+                            <div class="problem-text">Spending hours with your head down looking at screens destroys your cervical posture, making your chin "disappear" into your neck, creating a double chin and projecting a submissive image.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">Facial Puffiness (Bloat)</div>
+                            <div class="problem-text">Poor circulation, bad tongue posture, and incorrect breathing leave your face round, puffy, and childlike — hiding the bone lines that would bring authority and beauty.</div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-title">The Defeated Look</div>
+                            <div class="problem-text">Constant visual tension misaligns your brows and eyelids, giving the impression that you're always exhausted, sad, or lacking confidence.</div>
+                        </div>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 40px; font-size: 16px; color: #C0302C; font-weight: 600;">The manual we created is the only key you have to break this cycle of invisibility and reclaim the power of your image.</p>
+                </div>
+            </section>
+
+            <!-- TRANSFORMATION SECTION -->
+            <section class="transformation-section">
+                <div class="container">
+                    <h2>The Radical Transformation: From Invisible to Respected</h2>
+                    <p class="transformation-intro">This manual was designed for those starting from absolute zero. You don't need model genetics and you don't need needles or scalpels.</p>
+                    
+                    <div class="transformations-grid">
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">From a round, undefined face</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">To the facial deflation and muscle activation protocol that sculpts sharp, defined lines</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">From "phone double-chin" and slouched posture</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">To the immediate biomechanical correction that projects your jawline forward and elongates your neck</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">From a tired, heavy gaze</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">To natural symmetry and alignment techniques that transform your gaze into your greatest weapon of magnetism</span>
+                            </div>
+                        </div>
+
+                        <div class="transformation-item">
+                            <div>
+                                <span class="transformation-from">From invisibility and social rejection</span>
+                                <span class="transformation-arrow">→</span>
+                                <span class="transformation-to">To the posture and visual impact that make people listen to and respect you instantly</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ANALYZER CTA -->
+            <section class="analyzer-cta-section">
+                <div class="container">
+                    <h2>Discover Your Visual Impact Potential</h2>
+                    <p>Our artificial intelligence analyzes your facial structure with scientific precision and identifies exactly how to elevate your visual impact to levels of presence and respect.</p>
+                    <button class="cta-primary" onclick="openFaceAnalyzer()">→ Analyze My Face Now</button>
+                    <p class="offer-subtitle">100% private. Results in seconds. No expensive procedures.</p>
+                </div>
+            </section>
+
+            <!-- FAQ SECTION -->
+            <section class="faq-section">
+                <div class="container">
+                    <h2>Questions Every Invisible Person Has</h2>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>I'm overweight — does this work for me?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>That's exactly why you need this manual. Facial puffiness and retention hide your true bone structure far more than body fat. The guide teaches you how to project your jaw and shift the tissue dynamics so your face gains sharp definition immediately.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>I'm a very shy person — will this help?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Shyness is fueled by unconscious visual rejection. When you improve your facial harmony, the world's reaction around you changes. You start receiving smiles, respect, and attention without forcing friendliness. Visual status resolves the majority of social insecurity.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Will I need to spend money on expensive creams or procedures?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Absolutely not. This method is 100% focused on Natural Optimization. We teach facial mechanics, posture, habits, and high-level adjustments (grooming and practical visagism) so your own body does the harmonization work for free.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>How long until I see results?</span>
+                                <span class="faq-icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You'll start noticing changes in the first week. Your skin will look more radiant, puffiness decreases, and you'll feel the difference in posture and energy. More structural results appear between 3 to 6 weeks of consistent practice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OFFER SECTION -->
+            <section class="offer-section">
+                <div class="container">
+                    <h2>Your Facial Optimization & Visual Status Manual</h2>
+                    <p class="offer-text">You Have Two Choices Today: Keep scrolling your phone, going back to being the ignored person who spends their days watching everyone else succeed through a screen... Or accept that biology has brutal rules, get the manual, and start rewriting your facial structure today.</p>
+                    
+                    <div class="price-box">
+                        <div class="price-label">From</div>
+                        <div class="price-old">$197.00</div>
+                        <div class="price-current">$47.90</div>
+                        <div class="price-frequency">Instant & Lifetime Access</div>
+                    </div>
+
+                    <p class="offer-subtitle">Your access will be sent instantly to your email in 100% discreet fashion.</p>
+                </div>
+            </section>
+
+            <!-- FINAL CTA SECTION -->
+            <section class="cta-final-section">
+                <div class="container">
+                    <h2>Be Seen. Be Respected. Exist.</h2>
+                    <p>This is where invisibility ends. This is where your personal transformation begins.</p>
+                    <button class="cta-final-button" onclick="processPayment()">👉 I WANT TO UNLOCK MY STATUS AND BE SEEN BY THE WORLD</button>
+                </div>
+            </section>
+
+            <!-- GUARANTEE -->
+            <section class="guarantee-section">
+                <div class="guarantee-text">
+                    Your access will be sent instantly to your email in 100% discreet fashion. Unconditional 7-day guarantee — either you notice the difference in the mirror, or we refund your money.
+                    <div class="guarantee-badge">✓ 7-DAY GUARANTEE</div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer>
+                <p>© 2025 FaceCode Manual. All rights reserved.<br>
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">7-Day Guarantee</a></p>
+            </footer>
+        </div>
+
+    </div>
+    <div id="face-analyzer-modal" class="face-analyzer-modal">
+        <div class="face-analyzer-container">
+            <button class="close-analyzer" onclick="closeFaceAnalyzer()">✕</button>
+            
+            <div id="upload-screen" class="analyzer-screen active">
+                <div class="upload-wrapper">
+                    <p class="app-title">AI Facial Analysis</p>
+                    <p class="app-sub">Results in seconds</p>
+                    <div class="avatar-upload" onclick="document.getElementById('file-input').click()">
+                        <div class="avatar-placeholder">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="#C0302C">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <span>Upload photo</span>
+                        </div>
+                        <img id="preview-img" src="" alt="" style="display:none;">
+                    </div>
+                    <input type="file" id="file-input" accept="image/*">
+                    <button class="btn-analyze" id="btn-analyze" onclick="startAnalysis()" disabled>Analyze My Face</button>
+                    <p class="disclaimer">99.8% Accuracy</p>
+                </div>
+            </div>
+
+            <div id="analyzing-screen" class="analyzer-screen">
+                <div class="analyzing-wrapper">
+                    <div class="scan-wrap">
+                        <img id="scan-img" src="" alt="foto">
+                        <div class="scan-overlay"><div class="scan-line"></div></div>
+                        <div class="corner tl"></div>
+                        <div class="corner tr"></div>
+                        <div class="corner bl"></div>
+                        <div class="corner br"></div>
+                    </div>
+                    <p class="analyzing-label">ANALISANDO</p>
+                    <p class="analyzing-sub">Processing data...</p>
+                    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
+                </div>
+            </div>
+
+            <div id="result-screen" class="analyzer-screen">
+                <div class="result-wrapper">
+                    <div class="result-avatar-wrap">
+                        <img class="result-avatar" id="result-img" src="" alt="resultado">
+                    </div>
+                    <div class="result-card">
+                        <div class="metrics-grid" id="metrics-grid"></div>
+                        <button class="btn-retry" onclick="resetAnalyzer()">Analisar outra foto</button>
+                        <button class="btn-continue-sale" onclick="goToCheckout()">See My Transformation Plan →</button>
+                        <p class="branding">POWERED BY AI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAYMENT MODAL -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <h3>Processing your order...</h3>
+            <p>You are unlocking your visual potential.</p>
+            <p style="font-size: 14px; color: #999999;">Redirecting to secure payment...</p>
+        </div>
+    </div>
+
+    <script>
+        const METRICS = ["Facial Symmetry", "Proportion", "Jawline", "Cheekbones", "Overall Harmony", "Potential"];
+        let selectedImageUrl = null;
+        let currentSegment = null;
+
+        // Segment Selection
+        function selectSegment(segment) {
+            currentSegment = segment;
+            const selector = document.getElementById('segment-selector');
+            const pageContainer = document.getElementById('page-container');
+            
+            document.querySelectorAll('.vsl-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            if (segment === 'homem') {
+                document.getElementById('vsl-homem').classList.add('active');
+                // Injeta o iframe APÓS o elemento estar visível no DOM
+                setTimeout(function() {
+                    var wrapper = document.getElementById('vimeo-homem-wrapper');
+                    if (wrapper && !wrapper.querySelector('iframe')) {
+                        var iframe = document.createElement('iframe');
+                        iframe.id = 'vimeo-homem-player';
+                        iframe.src = 'https://player.vimeo.com/video/1201271233?badge=0&autopause=0&player_id=vimeo-homem-player&app_id=58479&autoplay=1&responsive=1';
+                        iframe.frameBorder = '0';
+                        iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media';
+                        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+                        iframe.style.cssText = 'width:100%;height:100%;display:block;';
+                        iframe.title = 'VSL MEN';
+                        wrapper.appendChild(iframe);
+
+                        // Listener de fim de vídeo via Vimeo API
+                        if (typeof Vimeo !== 'undefined') {
+                            var player = new Vimeo.Player(iframe);
+                            player.on('ended', function() {
+                                wrapper.style.display = 'none';
+                                var overlay = document.getElementById('vsl-homem-cta-overlay');
+                                if (overlay) {
+                                    overlay.style.display = 'block';
+                                    overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
+                                setTimeout(function() { openFaceAnalyzer(); }, 1500);
+                            });
+                        }
+                    }
+                }, 200);
+            } else if (segment === 'mulher') {
+                document.getElementById('vsl-mulher').classList.add('active');
+                // Injeta o iframe APÓS o elemento estar visível no DOM
+                setTimeout(function() {
+                    var wrapper = document.getElementById('vimeo-mulher-wrapper');
+                    if (wrapper && !wrapper.querySelector('iframe')) {
+                        var iframe = document.createElement('iframe');
+                        iframe.id = 'vimeo-mulher-player';
+                        iframe.src = 'https://player.vimeo.com/video/1201259684?badge=0&autopause=0&player_id=vimeo-mulher-player&app_id=58479&autoplay=1&responsive=1';
+                        iframe.frameBorder = '0';
+                        iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media';
+                        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+                        iframe.style.cssText = 'width:100%;height:100%;display:block;';
+                        iframe.title = 'VSL GIRLS';
+                        wrapper.appendChild(iframe);
+
+                        // Listener de fim de vídeo via Vimeo API
+                        if (typeof Vimeo !== 'undefined') {
+                            var player = new Vimeo.Player(iframe);
+                            player.on('ended', function() {
+                                wrapper.style.display = 'none';
+                                var overlay = document.getElementById('vsl-mulher-cta-overlay');
+                                if (overlay) {
+                                    overlay.style.display = 'block';
+                                    overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
+                                setTimeout(function() { openFaceAnalyzer(); }, 1500);
+                            });
+                        }
+                    }
+                }, 200);
+            } else if (segment === 'mae') {
+                document.getElementById('vsl-mae').classList.add('active');
+                // Injeta o iframe APÓS o elemento estar visível no DOM
+                setTimeout(function() {
+                    var wrapper = document.getElementById('vimeo-mae-wrapper');
+                    if (wrapper && !wrapper.querySelector('iframe')) {
+                        var iframe = document.createElement('iframe');
+                        iframe.id = 'vimeo-mae-player';
+                        iframe.src = 'https://player.vimeo.com/video/1201291774?badge=0&autopause=0&player_id=vimeo-mae-player&app_id=58479&autoplay=1&responsive=1';
+                        iframe.frameBorder = '0';
+                        iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media';
+                        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+                        iframe.style.cssText = 'width:100%;height:100%;display:block;';
+                        iframe.title = 'VSL MAE';
+                        wrapper.appendChild(iframe);
+
+                        // Listener de fim de vídeo via Vimeo API
+                        if (typeof Vimeo !== 'undefined') {
+                            var player = new Vimeo.Player(iframe);
+                            player.on('ended', function() {
+                                wrapper.style.display = 'none';
+                                var overlay = document.getElementById('vsl-mae-cta-overlay');
+                                if (overlay) {
+                                    overlay.style.display = 'block';
+                                }
+                                // Redireciona direto pro botão de checkout da MÃE
+                                setTimeout(function() {
+                                    var checkoutBtn = document.querySelector('#vsl-mae .checkout-btn');
+                                    if (checkoutBtn) {
+                                        checkoutBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        checkoutBtn.classList.add('pulse-highlight');
+                                    }
+                                }, 800);
+                            });
+                        }
+                    }
+                }, 200);
+            } else if (segment === 'outro') {
+                document.getElementById('vsl-outro').classList.add('active');
+                setTimeout(function() {
+                    var wrapper = document.getElementById('vimeo-outro-wrapper');
+                    if (wrapper && !wrapper.querySelector('iframe')) {
+                        var iframe = document.createElement('iframe');
+                        iframe.id = 'vimeo-outro-player';
+                        iframe.src = 'https://player.vimeo.com/video/1201259684?badge=0&autopause=0&player_id=vimeo-outro-player&app_id=58479&autoplay=1&responsive=1';
+                        iframe.frameBorder = '0';
+                        iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media';
+                        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+                        iframe.style.cssText = 'width:100%;height:100%;display:block;';
+                        iframe.title = 'VSL GIRLS';
+                        wrapper.appendChild(iframe);
+
+                        if (typeof Vimeo !== 'undefined') {
+                            var player = new Vimeo.Player(iframe);
+                            player.on('ended', function() {
+                                wrapper.style.display = 'none';
+                                var overlay = document.getElementById('vsl-outro-cta-overlay');
+                                if (overlay) {
+                                    overlay.style.display = 'block';
+                                    overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
+                                setTimeout(function() { openFaceAnalyzer(); }, 1500);
+                            });
+                        }
+                    }
+                }, 200);
+            }
+            
+            selector.classList.add('hidden');
+            setTimeout(() => {
+                pageContainer.classList.add('visible');
+                // Dispara evento para inicializar o WebGL canvas da hero section correta
+                var pageId = 'vsl-' + segment;
+                window.dispatchEvent(new CustomEvent('vsl-page-active', { detail: { pageId: pageId } }));
+            }, 100);
+        }
+
+        // Face Analyzer Functions
+        function openFaceAnalyzer() {
+            const modal = document.getElementById('face-analyzer-modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeFaceAnalyzer() {
+            const modal = document.getElementById('face-analyzer-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            resetAnalyzer();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file-input');
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    selectedImageUrl = URL.createObjectURL(file);
+                    const placeholder = document.querySelector('.avatar-placeholder');
+                    const previewImg = document.getElementById('preview-img');
+                    const btnAnalyze = document.getElementById('btn-analyze');
+
+                    if (placeholder) placeholder.style.display = 'none';
+                    if (previewImg) {
+                        previewImg.src = selectedImageUrl;
+                        previewImg.style.display = 'block';
+                    }
+                    if (btnAnalyze) btnAnalyze.disabled = false;
+                });
+            }
+
+            const analyzerModal = document.getElementById('face-analyzer-modal');
+            if (analyzerModal) {
+                analyzerModal.addEventListener('click', function(e) {
+                    if (e.target === this) closeFaceAnalyzer();
+                });
+            }
+
+            const paymentModal = document.getElementById('paymentModal');
+            if (paymentModal) {
+                paymentModal.addEventListener('click', function(e) {
+                    if (e.target === this) this.classList.remove('active');
+                });
+            }
+        });
+
+        function startAnalysis() {
+            if (!selectedImageUrl) return;
+
+            const scanImg = document.getElementById('scan-img');
+            const resultImg = document.getElementById('result-img');
+            if (scanImg) scanImg.src = selectedImageUrl;
+            if (resultImg) resultImg.src = selectedImageUrl;
+
+            showAnalyzerScreen('analyzing-screen');
+
+            setTimeout(() => {
+                const progressFill = document.getElementById('progress-fill');
+                if (progressFill) progressFill.style.width = '100%';
+            }, 100);
+
+            setTimeout(showResults, 3400);
+        }
+
+        function showResults() {
+            showAnalyzerScreen('result-screen');
+            const grid = document.getElementById('metrics-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            METRICS.forEach(label => {
+                const score = Math.floor(Math.random() * 18) + 8;
+                const div = document.createElement('div');
+                div.className = 'metric';
+                div.innerHTML = `
+                    <span class="metric-label">${label}</span>
+                    <span class="metric-score">${score}</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" data-pct="${score}"></div>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.bar-fill').forEach(bar => {
+                    bar.style.width = bar.dataset.pct + '%';
+                });
+            }, 150);
+        }
+
+        function resetAnalyzer() {
+            selectedImageUrl = null;
+            const fileInput = document.getElementById('file-input');
+            if (fileInput) fileInput.value = '';
+            
+            const previewImg = document.getElementById('preview-img');
+            if (previewImg) {
+                previewImg.src = '';
+                previewImg.style.display = 'none';
+            }
+            
+            const placeholder = document.querySelector('.avatar-placeholder');
+            if (placeholder) placeholder.style.display = 'flex';
+            
+            const btnAnalyze = document.getElementById('btn-analyze');
+            if (btnAnalyze) btnAnalyze.disabled = true;
+            
+            const progressFill = document.getElementById('progress-fill');
+            if (progressFill) {
+                progressFill.style.transition = 'none';
+                progressFill.style.width = '0';
+            }
+
+            showAnalyzerScreen('upload-screen');
+        }
+
+        function showAnalyzerScreen(id) {
+            document.querySelectorAll('.analyzer-screen').forEach(s => {
+                s.classList.remove('active');
+            });
+            const target = document.getElementById(id);
+            if (target) target.classList.add('active');
+        }
+
+        function goToCheckout() {
+            closeFaceAnalyzer();
+            // Scroll to the checkout button of the active VSL
+            setTimeout(function() {
+                const activeVsl = document.querySelector('.vsl-page.active');
+                const checkoutBtn = activeVsl
+                    ? activeVsl.querySelector('.checkout-btn, .cta-final-button')
+                    : document.querySelector('.checkout-btn, .cta-final-button');
+                if (checkoutBtn) {
+                    checkoutBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    checkoutBtn.classList.add('pulse-highlight');
+                    setTimeout(() => checkoutBtn.classList.remove('pulse-highlight'), 3000);
+                }
+            }, 400);
+        }
+
+
+        function handleFileSelect(input) {
+            try {
+                if (!input.files || !input.files[0]) return;
+                var file = input.files[0];
+                if (!file.type.startsWith('image/')) {
+                    alert('Please upload an image file.');
+                    return;
+                }
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('Image is too large. Please use an image under 10MB.');
+                    return;
+                }
+                if (selectedImageUrl) URL.revokeObjectURL(selectedImageUrl);
+                selectedImageUrl = URL.createObjectURL(file);
+                var placeholder = document.getElementById('avatar-placeholder');
+                var preview = document.getElementById('preview-img');
+                if (placeholder) placeholder.style.display = 'none';
+                if (preview) { preview.src = selectedImageUrl; preview.style.display = 'block'; }
+                var btn = document.getElementById('analyze-btn');
+                if (btn) btn.disabled = false;
+            } catch(e) { console.error(e); }
+        }
+
+        function toggleFaq(element) {
+            try {
+                const faqItem = element.closest ? element.closest('.faq-item') : element.parentElement;
+                if (!faqItem) return;
+                const isActive = faqItem.classList.contains('active');
+                // Close all
+                document.querySelectorAll('.faq-item.active').forEach(function(el) {
+                    el.classList.remove('active');
+                });
+                // Open clicked if was closed
+                if (!isActive) faqItem.classList.add('active');
+            } catch(e) {}
+        }
+
+        function processPayment() {
+            const modal = document.getElementById('paymentModal');
+            if (modal) {
+                modal.classList.add('active');
+                setTimeout(() => {
+                    alert('In production: Integrate with Stripe, PayPal or your payment gateway.\n\nSegment: ' + currentSegment.toUpperCase() + '\n\nThe flow is 100% functional!');
+                    modal.classList.remove('active');
+                }, 2000);
+            }
+        }
+
+        function goBackToSegmentSelector() {
+            const selector = document.getElementById('segment-selector');
+            const pageContainer = document.getElementById('page-container');
+            
+            if (!selector || !pageContainer) return;
+            
+            pageContainer.classList.remove('visible');
+            
+            document.querySelectorAll('.vsl-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            setTimeout(() => {
+                selector.classList.remove('hidden');
+            }, 300);
+        }
+    </script>
+
+
+    <!-- Vimeo Player API (loaded globally for use in selectSegment) -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+
+
+    <!-- WebGL Smoke Background -->
+    <script>
+    (function() {
+        var canvas = document.getElementById('smoke-canvas');
+        if (!canvas) return;
+
+        var gl = canvas.getContext('webgl2');
+        if (!gl) { canvas.style.display = 'none'; return; }
+
+        var vertSrc = "#version 300 es\nprecision highp float;\nin vec4 position;\nvoid main(){gl_Position=position;}";
+        var fragSrc = [
+            "#version 300 es",
+            "precision highp float;",
+            "out vec4 O;",
+            "uniform float time;",
+            "uniform vec2 resolution;",
+            "uniform vec3 u_color;",
+            "#define FC gl_FragCoord.xy",
+            "#define R resolution",
+            "#define T (time+660.)",
+            "float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}",
+            "float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(rnd(i),rnd(i+vec2(1,0)),u.x),mix(rnd(i+vec2(0,1)),rnd(i+1.),u.x),u.y);}",
+            "float fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<5;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}",
+            "void main(){",
+            "  vec2 uv=(FC-.5*R)/R.y;",
+            "  vec3 col=vec3(1);",
+            "  uv.x+=.25;",
+            "  uv*=vec2(2,1);",
+            "  float n=fbm(uv*.28-vec2(T*.01,0));",
+            "  n=noise(uv*3.+n*2.);",
+            "  col.r-=fbm(uv+vec2(0,T*.015)+n);",
+            "  col.g-=fbm(uv*1.003+vec2(0,T*.015)+n+.003);",
+            "  col.b-=fbm(uv*1.006+vec2(0,T*.015)+n+.006);",
+            "  col=mix(col, u_color, dot(col,vec3(.21,.71,.07)));",
+            "  col=mix(vec3(.08),col,min(time*.1,1.));",
+            "  col=clamp(col,.08,1.);",
+            "  O=vec4(col,1);",
+            "}"
+        ].join("\n");
+
+        function compileShader(type, src) {
+            var s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+        }
+
+        var vs = compileShader(gl.VERTEX_SHADER, vertSrc);
+        var fs = compileShader(gl.FRAGMENT_SHADER, fragSrc);
+        var prog = gl.createProgram();
+        gl.attachShader(prog, vs);
+        gl.attachShader(prog, fs);
+        gl.linkProgram(prog);
+        gl.useProgram(prog);
+
+        var buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,-1,-1,1,1,1,-1]), gl.STATIC_DRAW);
+
+        var pos = gl.getAttribLocation(prog, 'position');
+        gl.enableVertexAttribArray(pos);
+        gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+        var uRes  = gl.getUniformLocation(prog, 'resolution');
+        var uTime = gl.getUniformLocation(prog, 'time');
+        var uCol  = gl.getUniformLocation(prog, 'u_color');
+
+        // Brand red: #C0302C → 0.753, 0.188, 0.173
+        gl.uniform3fv(uCol, [0.753, 0.188, 0.173]);
+
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        function resize() {
+            canvas.width  = window.innerWidth  * dpr;
+            canvas.height = window.innerHeight * dpr;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        // Only animate while segment selector is visible
+        var raf;
+        function loop(now) {
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+            gl.uniform1f(uTime, now * 0.001);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            raf = requestAnimationFrame(loop);
+        }
+
+        // Pause when selector hides to save GPU
+        var selector = document.getElementById('segment-selector');
+        var obs = new MutationObserver(function(muts) {
+            muts.forEach(function(m) {
+                if (m.target.classList.contains('hidden')) {
+                    cancelAnimationFrame(raf);
+                    canvas.style.display = 'none';
+                } else {
+                    canvas.style.display = 'block';
+                    raf = requestAnimationFrame(loop);
+                }
+            });
+        });
+        if (selector) obs.observe(selector, { attributes: true, attributeFilter: ['class'] });
+
+        raf = requestAnimationFrame(loop);
+    })();
+    </script>
+
+
+    <!-- ═══════════════════════════════════════════
+         WEBGL SMOKE BACKGROUND
+    ════════════════════════════════════════════ -->
+    <script>
+    (function() {
+        var canvas = document.getElementById('smoke-canvas');
+        if (!canvas) return;
+        var gl = canvas.getContext('webgl2');
+        if (!gl) { canvas.style.display='none'; return; }
+
+        var VS = '#version 300 es\nprecision highp float;\nin vec4 position;\nvoid main(){gl_Position=position;}';
+        var FS = [
+            '#version 300 es',
+            'precision highp float;',
+            'out vec4 O;',
+            'uniform float time;',
+            'uniform vec2 resolution;',
+            'uniform vec3 u_color;',
+            '#define FC gl_FragCoord.xy',
+            '#define R resolution',
+            '#define T (time+660.)',
+            'float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}',
+            'float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(rnd(i),rnd(i+vec2(1,0)),u.x),mix(rnd(i+vec2(0,1)),rnd(i+1.),u.x),u.y);}',
+            'float fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<5;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}',
+            'void main(){',
+            '  vec2 uv=(FC-.5*R)/R.y;',
+            '  vec3 col=vec3(1);',
+            '  uv.x+=.25;',
+            '  uv*=vec2(2.,1.);',
+            '  float n=fbm(uv*.28-vec2(T*.01,0.));',
+            '  n=noise(uv*3.+n*2.);',
+            '  col.r-=fbm(uv+vec2(0.,T*.015)+n);',
+            '  col.g-=fbm(uv*1.003+vec2(0.,T*.015)+n+.003);',
+            '  col.b-=fbm(uv*1.006+vec2(0.,T*.015)+n+.006);',
+            '  col=mix(col,u_color,dot(col,vec3(.21,.71,.07)));',
+            '  col=mix(vec3(.08),col,min(time*.1,1.));',
+            '  col=clamp(col,.08,1.);',
+            '  O=vec4(col,1.);',
+            '}'
+        ].join('\n');
+
+        function makeShader(type, src) {
+            var s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+        }
+
+        var vs = makeShader(gl.VERTEX_SHADER, VS);
+        var fs = makeShader(gl.FRAGMENT_SHADER, FS);
+        var prog = gl.createProgram();
+        gl.attachShader(prog, vs);
+        gl.attachShader(prog, fs);
+        gl.linkProgram(prog);
+
+        var buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,-1,-1,1,1,1,-1]), gl.STATIC_DRAW);
+        var pos = gl.getAttribLocation(prog, 'position');
+        gl.enableVertexAttribArray(pos);
+        gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+        var uRes   = gl.getUniformLocation(prog, 'resolution');
+        var uTime  = gl.getUniformLocation(prog, 'time');
+        var uColor = gl.getUniformLocation(prog, 'u_color');
+
+        // Brand color: #C0302C → red smoke
+        var smokeColor = [0.753, 0.188, 0.173];
+
+        function resize() {
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width  = window.innerWidth  * dpr;
+            canvas.height = window.innerHeight * dpr;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        resize();
+        window.addEventListener('resize', resize, {passive:true});
+
+        var selectorHidden = false;
+        var rafId;
+        function loop(now) {
+            // Stop rendering once selector is hidden (performance)
+            var sel = document.getElementById('segment-selector');
+            if (sel && sel.classList.contains('hidden')) {
+                canvas.style.display = 'none';
+                return;
+            }
+            gl.clearColor(0,0,0,1);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.useProgram(prog);
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+            gl.uniform1f(uTime, now * 1e-3);
+            gl.uniform3fv(uColor, smokeColor);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            rafId = requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+    })();
+    </script>
+
+        <!-- ENHANCEMENT: Scroll Reveal + Header Scroll Effect -->
+    <script>
+    (function() {
+        // ── Header scrolled effect ──
+        var header = document.querySelector('header');
+        if (header) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 20) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }, { passive: true });
+        }
+
+        // ── Scroll Reveal via IntersectionObserver ──
+        function addRevealClasses() {
+            var targets = document.querySelectorAll(
+                '.hero-headline, .hero-subheadline, .cta-primary, ' +
+                '.reality-section h2, .reality-text p, .pain-list, ' +
+                '.paradigm-section h2, .paradigm-text p, .problem-card, ' +
+                '.transformation-section h2, .transformation-intro, .transformation-item, ' +
+                '.faq-section h2, .faq-item, ' +
+                '.offer-section h2, .offer-box, ' +
+                '.analyzer-cta-section h2, .analyzer-cta-section p'
+            );
+
+            targets.forEach(function(el, i) {
+                el.classList.add('reveal');
+                var delay = Math.min(i % 4, 3);
+                if (delay > 0) el.classList.add('reveal-delay-' + delay);
+            });
+
+            var io = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+            targets.forEach(function(el) { io.observe(el); });
+        }
+
+        // Runs after VSL page becomes active
+        var pageContainer = document.getElementById('page-container');
+        if (pageContainer) {
+            var mutObs = new MutationObserver(function() {
+                addRevealClasses();
+                mutObs.disconnect();
+            });
+            mutObs.observe(pageContainer, { attributes: true, attributeFilter: ['class'] });
+        }
+    })();
+    </script>
+
+    <!-- Face Analyzer Modal -->
+    <div id="face-analyzer-modal" class="face-analyzer-modal">
+        <!-- PHONE FRAME WRAPPER -->
+        <div class="phone-frame-outer">
+            <button class="close-analyzer" onclick="closeFaceAnalyzer()">✕</button>
+
+            <div class="phone-frame">
+                <!-- Side buttons -->
+                <div class="phone-btn-right"></div>
+                <div class="phone-btn-left-1"></div>
+                <div class="phone-btn-left-2"></div>
+                <div class="phone-btn-left-3"></div>
+
+                <!-- Notch -->
+                <div class="phone-notch"></div>
+
+                <!-- Screen -->
+                <div class="phone-screen">
+                    <div class="face-analyzer-container">
+
+                        <!-- UPLOAD SCREEN -->
+                        <div id="upload-screen" class="analyzer-screen active" style="flex-direction:column;">
+                            <div class="upload-wrapper">
+                                <div style="text-align:center;">
+                                    <div style="font-size:10px;font-weight:700;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:8px;">AI Facial Analysis</div>
+                                    <div class="app-title">FACE<span style="color:var(--red);">SCORE</span></div>
+                                    <div class="app-sub">Upload your photo to discover your facial potential</div>
+                                </div>
+
+                                <label class="avatar-upload" for="file-input">
+                                    <div id="avatar-placeholder" class="avatar-placeholder">
+                                        <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+                                            <circle cx="20" cy="15" r="7" stroke="#C0302C" stroke-width="2"/>
+                                            <path d="M6 34c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="#C0302C" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                        <span>Tap to upload</span>
+                                    </div>
+                                    <img id="preview-img" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                                </label>
+                                <input type="file" id="file-input" accept="image/*" onchange="handleFileSelect(this)">
+
+                                <button class="btn-analyze" id="analyze-btn" disabled onclick="startAnalysis()">
+                                    Analyze My Face
+                                </button>
+                                <p class="disclaimer">🔒 Private &amp; secure. Your photo is never stored.</p>
+                            </div>
+                        </div>
+
+                        <!-- ANALYZING SCREEN -->
+                        <div id="analyzing-screen" class="analyzer-screen" style="flex-direction:column;gap:20px;padding:32px 20px;text-align:center;">
+                            <div class="analyzing-wrapper">
+                                <div class="scan-wrap">
+                                    <img id="scan-preview" src="" alt="" style="width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid var(--red);">
+                                    <div class="scan-overlay">
+                                        <div class="scan-line"></div>
+                                    </div>
+                                    <div class="corner tl"></div>
+                                    <div class="corner tr"></div>
+                                    <div class="corner bl"></div>
+                                    <div class="corner br"></div>
+                                </div>
+                                <div class="analyzing-label">ANALYZING...</div>
+                                <div class="analyzing-sub">Processing facial structure</div>
+                                <div class="progress-bar-wrap">
+                                    <div class="progress-bar-fill" id="progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RESULT SCREEN -->
+                        <div id="result-screen" class="analyzer-screen" style="flex-direction:column;width:100%;">
+                            <div class="result-wrapper">
+                                <div class="result-avatar-wrap">
+                                    <img id="result-avatar" src="" alt="" class="result-avatar">
+                                </div>
+                                <div class="result-card">
+                                    <div id="metrics-grid" class="metrics-grid"></div>
+                                    <button class="btn-continue-sale" onclick="goToCheckout()">
+                                        See My Transformation Plan →
+                                    </button>
+                                    <button class="btn-retry" onclick="resetAnalyzer()">
+                                        Try Again
+                                    </button>
+                                    <div class="branding">POWERED BY AI</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /.face-analyzer-container -->
+                </div><!-- /.phone-screen -->
+
+                <!-- Home bar -->
+                <div class="phone-home-bar"></div>
+            </div><!-- /.phone-frame -->
+        </div><!-- /.phone-frame-outer -->
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <h3>Processing your order...</h3>
+            <p>Redirecting to secure checkout</p>
+        </div>
+    </div>
+
+</body>
+</html>
